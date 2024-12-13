@@ -1,32 +1,21 @@
-// app/blog/[slug]/page.js
-
 import { notFound } from "next/navigation";
+import { getPost } from "@/lib/posts";
 
-const titles = {
-  first: "Hello First",
-  second: "Hello Second",
-};
-
-export async function generateMetadata({ params, searchParams }, parent) {
-  const description = (await parent).description ?? "Default desc";
-
-  // Kiểm tra nếu params.slug không hợp lệ
-  if (!titles[params.slug]) {
-    notFound();
-  }
-  return {
-    title: titles[params.slug],
-    description,
-  };
+export async function generateMetadata({ params }, parent) {
+  try {
+    const { frontmatter } = await getPost(params.slug);
+    return frontmatter;
+  } catch (e) {}
 }
 
-export default function BlogPage({ params }) {
-  // Kiểm tra nếu params.slug không hợp lệ
-  if (!["first", "second"].includes(params.slug)) {
+export default async function BlogPage({ params }) {
+  let post;
+
+  try {
+    post = await getPost(params.slug);
+  } catch (e) {
     notFound();
   }
-  return <>Hello! {params.slug}</>;
-}
 
-// Nếu ta truy cập http://localhost:3000/blog/first
-// thì sẽ cho ra Hello! first
+  return <article className="prose dark:prose-invert">{post.content}</article>;
+}
