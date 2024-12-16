@@ -1,20 +1,18 @@
-import { getPost } from "@/lib/posts";
-import fs from "fs";
-import path from "path";
 import Link from "next/link";
+import { getPosts } from "@/lib/posts";
 
-export default async function BlogPostsPage() {
-  const files = fs.readdirSync(path.join(process.cwd(), "content"));
-  const posts = await Promise.all(
-    files.map(async (filename) => {
-      const { frontmatter } = await getPost(filename);
-      return {
-        frontmatter,
-        slug: filename.replace(".mdx", ""),
-      };
-    })
-  );
-  console.log(posts);
+export default async function BlogPostsPage({ searchParams }) {
+  // Có thay đổi cho phù hợp NextJs 15
+  const { tags, order } = await searchParams;
+  const tagsArray = tags?.split(",");
+  const orderNwest = order ?? "newest";
+  // const tags = await searchParams.tags;
+  // const tagsArray = tags?.split(",");
+  // const order = (await searchParams.order) ?? "newest";
+  const posts = await getPosts({
+    tags: tagsArray,
+    newest: orderNwest === "newest",
+  });
   return (
     <>
       <h1 className="mb-8 text-xl">Recent Posts</h1>
