@@ -6,7 +6,8 @@ export default async function ProjectList() {
   //   next: { revelidate: 3600 },
   // });
   const response = await fetch(
-    "http://localhost:3001/repos"
+    "https://api.github.com/users/piotr-jura-udemy/repos"
+    // "http://localhost:3001/repos"
     //     , {
     //     cache: "no-store",
     //   }
@@ -20,7 +21,7 @@ export default async function ProjectList() {
           <li key={repo.id} className="mb-4">
             <Card className="font-mono h-full">
               <div className="flex justify-between items-center mb-4">
-                <div className="font-semibold">{repo.title}</div>
+                <div className="font-semibold">{repo.name}</div>
                 <div>⭐{repo.stargazers_count}</div>
               </div>
               <div>{repo.description}</div>
