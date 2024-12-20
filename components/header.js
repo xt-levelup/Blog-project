@@ -1,10 +1,15 @@
 import Link from "next/link";
 import Navigation from "./navigation";
 import DarkMode from "./dark-mode";
-import useServerDarkMode from "@/hooks/use-server-dark-mode";
+import getServerDarkMode from "@/hooks/use-server-dark-mode";
 
-export default async function Header() {
-  const theme = await useServerDarkMode();
+// --- Nếu sử dụng cookies ----------------
+// export default async function Header() {
+//   const theme = await getServerDarkMode();
+// ------------------------------------------
+
+export default function Header() {
+  const theme = getServerDarkMode();
   return (
     <header className="flex justify-between md:items-center mt-4">
       <div className="flex items-center md:space-x-12">
