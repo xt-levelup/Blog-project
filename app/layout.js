@@ -14,10 +14,10 @@ const roboto = Roboto({
 
 export const metadata = {
   title: {
-    template: "%s | Piotr Jura",
-    default: "Piotr Jura",
+    template: "%s | Xitrumvndn",
+    default: "Xitrumvndn",
   },
-  description: "Piotr Jura Portfolio",
+  description: "Xitrumvndn - Phan Minh Cuong",
 };
 
 // --- Nếu sử dụng cookies ----------------------------

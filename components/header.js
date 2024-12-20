@@ -15,7 +15,7 @@ export default function Header() {
       <div className="flex items-center md:space-x-12">
         <div className="hidden md:block">
           <Link href="/" className="text-xl font-mono">
-            Piotr Jura
+            Phan Minh Cuong
           </Link>
         </div>
         <Navigation />
